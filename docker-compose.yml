@@ -1,0 +1,31 @@
+services:
+  veritabani:
+    image: postgres:15-alpine
+    container_name: kampusdestek_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: kampus_admin
+      POSTGRES_PASSWORD: guclu_kampus_sifresi_2026
+      POSTGRES_DB: kampusdestek_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_veri:/var/lib/postgresql/data
+    networks:
+      - kampus_agi
+
+  onbellek:
+    image: redis:7-alpine
+    container_name: kampusdestek_redis
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      - kampus_agi
+
+volumes:
+  postgres_veri:
+
+networks:
+  kampus_agi:
+    driver: bridge
